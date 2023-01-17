@@ -6,8 +6,8 @@ const router = express.Router();
 router
   .post("/", DespesasController.salvarDespesa)
   .get("/", DespesasController.buscarDespesas)
-  .put("/", DespesasController.atualizarDespesa)
-  .patch("/", DespesasController.atualizarDespesa)
-  .delete("/", DespesasController.deletarDespesa);
+  .put("/:id", DespesasController.atualizarDespesa)
+  .patch("/:id", DespesasController.atualizarDespesa)
+  .delete("/:id", DespesasController.deletarDespesa);
 
 export default router;

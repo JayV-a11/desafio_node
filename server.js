@@ -12,7 +12,7 @@ config.client
     app.use(express.json());
     app.use("/tipos_pagamentos", tipos_pagamentos);
     app.use("/categorias", categorias);
-    app.use("/despesas", despesas);
+    app.use("/api/despesas", despesas);
     app.listen(3000, () => {
       console.log("Server started on port 3000");
     });
