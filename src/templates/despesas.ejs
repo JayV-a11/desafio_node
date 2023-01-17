@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DESPESAS</title>
+
+    <link
+      href="https://unpkg.com/tailwindcss/dist/tailwind.min.css"
+      rel="stylesheet" />
+
+    <style>
+      table {
+        width: 100%;
+      }
+      th {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body class="bg-purple-100">
+    <div class="m-8">
+      <h1 class="text-3xl mb-8">Listagem de despesas</h1>
+      <div class="compras">
+        <% if (despesas.length > 0) { %> <% despesas.forEach(despesa => { %>
+
+        <bold>Data da compra: </bold
+        ><span><%= despesa.data_compra.toISOString().slice(0, 10) %></span
+        ><br />
+        <bold>Descrição: </bold><span><%= despesa.descricao %></span><br />
+        <bold>Valor: R$ </bold><span><%= despesa.valor %></span><br />
+        <bold>Forma de pagamento: </bold
+        ><span><%= despesa.tipo_pagamento[0].tipo %></span><br />
+        <bold>Categoria: </bold><span><%= despesa.categoria[0].nome %></span
+        ><br />
+        <bold>Endereço: </bold
+        ><span
+          ><%= `Rua ${despesa.endereco[0].logradouro} Nº
+          ${despesa.endereco[0].numero}, ${despesa.endereco[0].cidade} -
+          ${despesa.endereco[0].estado} ` %></span
+        ><br />
+        <hr />
+        <% }); %> <% } %>
+
+        <tfoot>
+          <tr>
+            <td colspan="2"><%=despesas.length%> despesas</td>
+          </tr>
+        </tfoot>
+      </div>
+    </div>
+  </body>
+</html>
