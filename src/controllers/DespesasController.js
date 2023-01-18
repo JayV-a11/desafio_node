@@ -55,8 +55,11 @@ class DespesasController {
         }
       }
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ success: false, message: "Erro interno" });
+      res.status(500).json({
+        success: false,
+        message:
+          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+      });
     }
   };
 
@@ -118,8 +121,11 @@ class DespesasController {
         gerarPDF(despesas, res);
       } else res.json({ sucess: true, message: despesas });
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        success: false,
+        message:
+          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+      });
     }
   };
 
@@ -127,7 +133,9 @@ class DespesasController {
     try {
       const id = req.params.id;
       if (!ObjectId.isValid(id))
-        return res.status(404).json({ message: "Despesa não encontrada" });
+        return res
+          .status(404)
+          .json({ success: null, message: "Despesa não encontrada" });
       const result = await config.db
         .collection("despesas")
         .deleteOne({ _id: ObjectId(id) });
@@ -136,10 +144,16 @@ class DespesasController {
           .status(200)
           .json({ success: true, message: "Despesa excluída com sucesso" });
       } else {
-        res.status(404).json({ message: "Despesa não encontrada" });
+        res
+          .status(404)
+          .json({ succes: null, message: "Despesa não encontrada" });
       }
     } catch (err) {
-      res.status(500).json({ error: err });
+      res.status(500).json({
+        success: false,
+        message:
+          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+      });
     }
   };
 
@@ -157,13 +171,20 @@ class DespesasController {
         .updateOne({ _id: ObjectId(req.params.id) }, { $set: updateObject });
 
       if (result.modifiedCount === 1) {
-        res.json({ success: true });
+        res.json({ success: true, message: "Despesa atualizada com sucesso" });
       } else {
-        res.status(404).json({ message: "Despesa não encontrada" });
+        res
+          .status(404)
+          .json({ success: null, message: "Despesa não encontrada" });
       }
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: err });
+      res
+        .status(500)
+        .json({
+          success: false,
+          message:
+            "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+        });
     }
   };
 }
