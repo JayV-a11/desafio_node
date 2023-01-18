@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import config from "../config/db.js";
 
 class CategoriasController {
