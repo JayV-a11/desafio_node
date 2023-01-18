@@ -32,7 +32,7 @@
         <bold>Valor: R$ </bold><span><%= despesa.valor %></span><br />
         <bold>Forma de pagamento: </bold
         ><span><%= despesa.tipo_pagamento[0].tipo %></span><br />
-        <bold>Categoria: </bold><span><%= despesa.categoria[0].nome %></span
+        <bold>Categoria: </bold><span><%= despesa?.categoria[0]?.nome %></span
         ><br />
         <bold>Endereço: </bold
         ><span

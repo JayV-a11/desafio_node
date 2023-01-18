@@ -15,6 +15,7 @@ const gerarPDF = (despesas, res) => {
 
   ejs.renderFile(filePath, { despesas }, (err, data) => {
     if (err) {
+      console.log(err);
       res.status(500).send("Erro na leitura do arquivo");
     } else {
       const options = {
