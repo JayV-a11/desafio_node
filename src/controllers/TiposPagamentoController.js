@@ -10,11 +10,12 @@ class TiposPagamentosController {
         .toArray();
       res.json({
         success: true,
-        message: tipos_pagamentos,
+        data: tipos_pagamentos,
       });
     } catch (err) {
       res.status(500).json({
-        error: "Ocorreu um erro interno inesperado. Por favor, tente novamente",
+        success: false,
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };
@@ -25,19 +26,21 @@ class TiposPagamentosController {
       if (!ObjectId.isValid(id))
         return res
           .status(404)
-          .json({ success: null, message: "Tipo de pagamento não encontrado" });
+          .json({ success: null, data: "Tipo de pagamento não encontrado" });
       const tipo_pagamento = await config.db
         .collection("tipos_pagamentos")
         .findOne({ _id: ObjectId(id) });
       if (tipo_pagamento) {
-        res.json({ success: true, message: tipo_pagamento });
+        res.json({ success: true, data: tipo_pagamento });
       } else {
-        res.status(404).json({ message: "Tipo de pagamento não encontrado" });
+        res
+          .status(404)
+          .json({ success: false, data: "Tipo de pagamento não encontrado" });
       }
     } catch (err) {
-      console.log(err);
       res.status(500).json({
-        error: "Ocorreu um erro interno inesperado. Por favor, tente novamente",
+        success: false,
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };

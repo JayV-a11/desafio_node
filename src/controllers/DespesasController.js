@@ -47,18 +47,17 @@ class DespesasController {
         if (result.acknowledged) {
           res
             .status(201)
-            .json({ success: true, message: `_id: ${result.insertedId}` });
+            .json({ success: true, data: `_id: ${result.insertedId}` });
         } else {
           res
             .status(500)
-            .json({ success: false, message: "Falha ao inserir despesa" });
+            .json({ success: false, data: "Falha ao inserir despesa" });
         }
       }
     } catch (err) {
       res.status(500).json({
         success: false,
-        message:
-          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };
@@ -119,12 +118,11 @@ class DespesasController {
         gerarXLSX(despesas, res);
       } else if (formatType == "pdf") {
         gerarPDF(despesas, res);
-      } else res.json({ sucess: true, message: despesas });
+      } else res.json({ sucess: true, data: despesas });
     } catch (err) {
       res.status(500).json({
         success: false,
-        message:
-          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };
@@ -135,24 +133,21 @@ class DespesasController {
       if (!ObjectId.isValid(id))
         return res
           .status(404)
-          .json({ success: null, message: "Despesa não encontrada" });
+          .json({ success: null, data: "Despesa não encontrada" });
       const result = await config.db
         .collection("despesas")
         .deleteOne({ _id: ObjectId(id) });
       if (result.deletedCount === 1) {
         res
           .status(200)
-          .json({ success: true, message: "Despesa excluída com sucesso" });
+          .json({ success: true, data: "Despesa excluída com sucesso" });
       } else {
-        res
-          .status(404)
-          .json({ succes: null, message: "Despesa não encontrada" });
+        res.status(404).json({ success: null, data: "Despesa não encontrada" });
       }
     } catch (err) {
       res.status(500).json({
         success: false,
-        message:
-          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };
@@ -171,20 +166,15 @@ class DespesasController {
         .updateOne({ _id: ObjectId(req.params.id) }, { $set: updateObject });
 
       if (result.modifiedCount === 1) {
-        res.json({ success: true, message: "Despesa atualizada com sucesso" });
+        res.json({ success: true, data: "Despesa atualizada com sucesso" });
       } else {
-        res
-          .status(404)
-          .json({ success: null, message: "Despesa não encontrada" });
+        res.status(404).json({ success: null, data: "Despesa não encontrada" });
       }
     } catch (err) {
-      res
-        .status(500)
-        .json({
-          success: false,
-          message:
-            "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
-        });
+      res.status(500).json({
+        success: false,
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+      });
     }
   };
 }

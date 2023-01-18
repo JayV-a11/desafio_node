@@ -7,7 +7,9 @@ class CategoriasController {
       const { nome, descricao } = req.body;
 
       if (!nome || !descricao) {
-        return res.status(400).json({ message: "Dados incompletos" });
+        return res
+          .status(400)
+          .json({ success: false, data: "Dados incompletos" });
       }
 
       const result = await config.db
@@ -17,17 +19,16 @@ class CategoriasController {
       if (result.acknowledged) {
         res
           .status(201)
-          .json({ success: true, message: `_id: ${result.insertedId}` });
+          .json({ success: true, data: `_id: ${result.insertedId}` });
       } else {
         res
           .status(500)
-          .json({ success: false, message: "Falha ao inserir categoria" });
+          .json({ success: false, data: "Falha ao inserir categoria" });
       }
     } catch (err) {
       res.status(500).json({
         success: false,
-        message:
-          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };
@@ -39,13 +40,12 @@ class CategoriasController {
         .find({})
         .toArray();
 
-      res.json({ success: true, message: categorias });
+      res.json({ success: true, data: categorias });
     } catch (err) {
       console.log(err);
       res.status(500).json({
         success: false,
-        message:
-          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };
@@ -56,24 +56,23 @@ class CategoriasController {
       if (!ObjectId.isValid(id))
         return res
           .status(404)
-          .json({ success: null, message: "Categoria não encontrada" });
+          .json({ success: null, data: "Categoria não encontrada" });
       const result = await config.db
         .collection("categorias")
         .deleteOne({ _id: ObjectId(id) });
       if (result.deletedCount === 1) {
         res
           .status(200)
-          .json({ success: true, message: "Categoria excluída com sucesso" });
+          .json({ success: true, data: "Categoria excluída com sucesso" });
       } else {
         res
           .status(404)
-          .json({ success: null, message: "Categoria não encontrada" });
+          .json({ success: null, data: "Categoria não encontrada" });
       }
     } catch (err) {
       res.status(500).json({
         success: false,
-        message:
-          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };
@@ -84,7 +83,7 @@ class CategoriasController {
       if (!ObjectId.isValid(id))
         return res
           .status(404)
-          .json({ succes: null, message: "Categoria não encontrada" });
+          .json({ succes: null, data: "Categoria não encontrada" });
 
       const updateResult = await config.db
         .collection("categorias")
@@ -95,17 +94,16 @@ class CategoriasController {
       if (updateResult.matchedCount === 1) {
         res
           .status(200)
-          .json({ success: true, message: "Categoria atualizada com sucesso" });
+          .json({ success: true, data: "Categoria atualizada com sucesso" });
       } else {
         res
           .status(404)
-          .json({ success: null, message: "Categoria não encontrada" });
+          .json({ success: null, data: "Categoria não encontrada" });
       }
     } catch (err) {
       res.status(500).json({
         success: false,
-        message:
-          "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
+        data: "Ocorreu um erro interno. Por favor, tente novamente mais tarde",
       });
     }
   };
